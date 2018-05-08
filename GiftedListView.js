@@ -295,7 +295,7 @@ var GiftedListView = createReactClass({
   _renderPaginationView() {
     let paginationEnabled = this.props.pagination === true || this.props.autoPaginate === true;
 
-    if ((this.state.paginationStatus === 'fetching' && paginationEnabled) || (this.state.paginationStatus === 'firstLoad' && this.props.firstLoader === true)) {
+    if ((this.state.paginationStatus === 'fetching' && paginationEnabled)) {
       return this.paginationFetchingView();
     } else if (this.state.paginationStatus === 'waiting' && this.props.pagination === true && (this.props.withSections === true || this._getRows().length > 0)) { //never show waiting for autoPaginate
       return this.paginationWaitingView(this._onPaginate);
