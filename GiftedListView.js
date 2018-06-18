@@ -233,9 +233,11 @@ var GiftedListView = createReactClass({
   },
 
   _onRefresh(options = {}) {
-    this.setState({
-      isRefreshing: true,
-    });
+    if (!options.external) {
+      this.setState({
+        isRefreshing: true,
+      });
+    }
 
     this._setPage(1);
     this.props.onFetch(this._getPage(), this._postRefresh, options);
