@@ -228,10 +228,6 @@ var GiftedListView = createReactClass({
     this.refs.listview.setNativeProps(props);
   },
 
-  _refresh() {
-    this._onRefresh({external: true});
-  },
-
   _onRefresh(options = {}) {
     if (!options.external) {
       this.setState({
