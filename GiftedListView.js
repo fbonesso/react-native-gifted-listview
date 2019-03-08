@@ -87,6 +87,7 @@ var GiftedListView = createReactClass({
     renderRefreshControl: PropTypes.func,
     headerView: PropTypes.func,
     sectionHeaderView: PropTypes.func,
+    goTop: PropTypes.func,
     scrollEnabled: PropTypes.bool,
     withSections: PropTypes.bool,
     autoPaginate: PropTypes.bool,
@@ -156,6 +157,11 @@ var GiftedListView = createReactClass({
       return null;
     }
     return this.props.headerView();
+  },
+
+  goTop() {
+    this.refs.listview.scrollTo({x:0, y:0, animated:true});
+    this.state.isShowToTop = false;
   },
 
   emptyView(refreshCallback) {
