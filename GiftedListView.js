@@ -125,13 +125,24 @@ var GiftedListView = createReactClass({
       return this.props.paginationAllLoadedView();
     }
 
-    return (
-      <View style={[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}>
-        <Text style={[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
-          <Icon name="smile-o" size={28} />
-        </Text>
-      </View>
-    );
+    if (this._rows.length == 0) {
+      return (
+        <View style={this.defaultStyles.noResultsContainer}>
+          <Icon name="search" size={100} color={"#ccc"} />
+          <Text style={this.defaultStyles.noResultsTitle}>Nenhum resultado :(</Text>
+          <Text style={this.defaultStyles.noResultsSubtitle}>Não foi possível encontrar nenhum resultado para esta pesquisa.</Text>
+        </View>
+      );
+    }
+    else {
+      return (
+        <View style={[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}>
+          <Text style={[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
+            <Icon name="smile-o" size={28} />
+          </Text>
+        </View>
+      );
+    }
   },
 
   paginationWaitingView(paginateCallback) {
@@ -250,7 +261,7 @@ var GiftedListView = createReactClass({
   },
 
   _onPaginate() {
-    if (this.state.paginationStatus === 'firstLoad' || this.state.paginationStatus === 'waiting') {
+    if (this.state.paginationStatus === 'firstLoad') {
       this.setState({paginationStatus: 'fetching'});
       this.props.onFetch(this._getPage() + 1, this._postPaginate, {});
     }
@@ -440,6 +451,26 @@ var GiftedListView = createReactClass({
       color: 'white',
       fontSize:22,
       marginTop:-2,
+    },
+    noResultsContainer: {
+      flex: 1,
+      height: Dimensions.get('window').height - 230,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    noResultsTitle: {
+      fontSize: 18,
+      marginTop: 30,
+      marginBottom: 10,
+      color: "#ccc",
+      fontWeight: "bold"
+    },
+    noResultsSubtitle: {
+      fontSize: 16,
+      paddingLeft: 20,
+      paddingRight: 20,
+      color: "#ccc",
+      textAlign: "center"
     },
   },
 });
